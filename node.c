@@ -1,4 +1,5 @@
 #include "node.h"
+#include "edge.h"
 #include <stdlib.h>
 
 pnode createNode(int num)
@@ -8,7 +9,7 @@ pnode createNode(int num)
     {
         new_node->node_num = num;
         new_node->edges = NULL;
-        new_node->node_num = NULL;
+        new_node->next = NULL;
     }
 }
 
@@ -21,7 +22,7 @@ void deleteNode(pnode nodeTBD)
     
     if (nodeTBD->edges != NULL)
     {
-        free(nodeTBD->edges);
+        deleteEdge(nodeTBD->edges);
     }
 
     free(nodeTBD);
