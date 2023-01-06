@@ -9,3 +9,5 @@ typedef struct edge_ {
 pedge createEdge(pnode, int);
 
 void deleteEdge(pedge);
+
+void deleteAllEdges(pedge);

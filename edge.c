@@ -18,6 +18,15 @@ void deleteEdge(pedge edgeTBD)
     {
         return;
     }
-    deleteEdge(edgeTBD->next);
     free(edgeTBD);
+}
+
+void deleteAllEdges(pedge edgeTBD)
+{
+    if (edgeTBD == NULL)
+    {
+        return;
+    }
+    deleteAllEdges(edgeTBD->next);
+    deleteEdge(edgeTBD);
 }

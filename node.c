@@ -22,7 +22,7 @@ void deleteNode(pnode nodeTBD)
     
     if (nodeTBD->edges != NULL)
     {
-        deleteEdge(nodeTBD->edges);
+        deleteAllEdges(nodeTBD->edges);
     }
 
     free(nodeTBD);
