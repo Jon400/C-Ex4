@@ -11,6 +11,7 @@ pnode createNode(int num)
         new_node->edges = NULL;
         new_node->next = NULL;
     }
+    return new_node;
 }
 
 void deleteNode(pnode nodeTBD)
@@ -26,5 +27,14 @@ void deleteNode(pnode nodeTBD)
     }
 
     free(nodeTBD);
+}
+
+void deleteAllNodes(pnode nodeTBD){
+    if (nodeTBD == NULL)
+    {
+        return;
+    }
+    deleteAllNodes(nodeTBD->next);
+    deleteNode(nodeTBD);
 }
 

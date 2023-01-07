@@ -8,5 +8,6 @@ typedef struct GRAPH_NODE_ {
 } node, *pnode;
 
 pnode createNode(int);
-
 void deleteNode(pnode);
+
+void deleteAllNodes(pnode);

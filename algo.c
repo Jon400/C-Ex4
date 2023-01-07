@@ -140,7 +140,7 @@ void delete_node_cmd(pnode * head)
     {
         prev_node = prev_node->next;
     }
-
     prev_node->next = nodeTBD->next;
+    deleteNode(nodeTBD);
     
 }

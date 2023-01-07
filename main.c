@@ -1,4 +1,5 @@
 #include "graph.h"
+#include "node.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -24,6 +25,8 @@ int main(int argc, char const *argv[])
         }
         
     }
-    
+
+    deleteAllNodes(*head);
+    free(head);        
     return 0;
 }
