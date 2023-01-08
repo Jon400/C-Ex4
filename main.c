@@ -23,6 +23,10 @@ int main(int argc, char const *argv[])
         {
             delete_node_cmd(head);
         }
+        else if (res == 'S')
+        {
+            shortsPath_cmd(*head);
+        }
         
     }
 

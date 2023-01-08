@@ -3,6 +3,7 @@
 #include "node.h"
 #include "graph.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 pnode findNode(pnode head, int num)
 {
@@ -142,5 +143,73 @@ void delete_node_cmd(pnode * head)
     }
     prev_node->next = nodeTBD->next;
     deleteNode(nodeTBD);
+}
+
+void shortsPath_cmd(pnode node)
+{
+    // count num of nodes in graph
+    pnode temp_node = node;
+    int nodes_count = 0;
+    while (temp_node)
+    {
+        nodes_count ++;
+        temp_node = temp_node->next;
+    }
     
+    int * visited_nodes_arr = (int *) malloc(nodes_count * sizeof(int));
+    int * dist_nodes_arr = (int *) malloc(nodes_count * sizeof(int));
+    //initialize the array
+    for (size_t i = 0; i < nodes_count; i++)
+    {
+        // that means this node is not visited yet
+        visited_nodes_arr[i] = 0;
+        dist_nodes_arr[i] = -1; // -1 = inf
+    }
+    
+    int node_source = 0;
+    int node_target = 0;
+    scanf("%d", &node_source);
+    scanf("%d", &node_target);
+
+    pnode min_dist_node = findNode(node, node_source);
+    dist_nodes_arr[node_source] = 0;
+    while (min_dist_node)
+    {
+           pedge edges = min_dist_node->edges;
+           while (edges)
+           {
+                int node_dist = dist_nodes_arr[edges->endpoint->node_num];
+                int node_dist_new = dist_nodes_arr[min_dist_node->node_num] + edges->weight;
+                if (node_dist == -1)
+                {
+                    dist_nodes_arr[edges->endpoint->node_num] = node_dist_new;
+                }
+                else {
+                    dist_nodes_arr[edges->endpoint->node_num] = node_dist < node_dist_new ? node_dist : node_dist_new;
+                }
+                edges = edges->next;
+           }
+           visited_nodes_arr[min_dist_node->node_num] = 1;
+
+           int min_dist = -1;
+           min_dist_node = NULL;
+           for (size_t i = 0; i < nodes_count; i++)
+           {
+                if (!visited_nodes_arr[i])
+                {
+                    if (min_dist == -1)
+                    {
+                        min_dist_node = findNode(node, i);
+                    }
+                    else if (dist_nodes_arr[i] < min_dist)
+                    {   
+                        min_dist_node = findNode(node, i);
+                    }
+                }
+           }   
+    }
+
+    printf("Dijsktra shortest path: %d\n", dist_nodes_arr[node_target]);  
+    free(visited_nodes_arr);
+    free(dist_nodes_arr);
 }
