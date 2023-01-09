@@ -27,7 +27,10 @@ int main(int argc, char const *argv[])
         {
             shortsPath_cmd(*head);
         }
-        
+        else if (res == 'T')
+        {
+            TSP_cmd(*head);
+        }  
     }
 
     deleteAllNodes(*head);

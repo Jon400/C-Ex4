@@ -61,6 +61,7 @@ void insert_node_cmd(pnode *head)
     else
     {
         deleteAllEdges(found_node->edges);
+        found_node->edges = NULL;
         temp_head = found_node;
     }
  
@@ -212,4 +213,152 @@ void shortsPath_cmd(pnode node)
     printf("Dijsktra shortest path: %d\n", dist_nodes_arr[node_target]);  
     free(visited_nodes_arr);
     free(dist_nodes_arr);
+}
+
+void TSP_cmd(pnode node)
+{
+    int k = 0;
+    int res = -1;
+    int min = 0;
+    scanf("%d", &k);
+    int * path_nodes = (int *) malloc(k * sizeof(int)); 
+
+    for (size_t i = 0; i < k; i++)
+    {
+        scanf("%d", &path_nodes[i]);
+    }
+    
+    for (size_t i = 0; i < k; i++)
+    {
+
+        min = shortPath(node, path_nodes[i], path_nodes, k);
+        if (min == -1)
+        {
+            continue;
+        }
+        if(res == -1)
+        {
+            res = min;
+        }
+        else if (res > min)
+        {
+            res = min;
+        }
+    }
+    
+    free(path_nodes);
+    printf("TSP shortest path: %d\n", res);
+}
+
+int shortPath(pnode head, int start, int * arr, int len)
+{
+
+    pnode node = NULL;
+    pedge edges = NULL;
+    node = findNode(head, start);
+    edges = node->edges;
+    int temp = 0;
+    int min_path = -1;
+    int temp_path = 0;
+    while (edges)
+    {
+        min_path = -1;
+        for (size_t i = 0; i < len; i++)
+        {
+            if (arr[i] != -1)
+            {
+                if (edges->endpoint->node_num == arr[i])
+                {
+                    temp = arr[i];
+                    arr[i] = -1;
+                    int temp_res = shortPath(head, temp, arr, len);
+                    temp_path = edges->weight + temp_res;
+                    arr[i] = temp;
+                }
+            }
+        }
+        edges = edges->next;  
+        if (min_path == -1)
+        {
+            min_path = temp_path;
+        }
+        else
+        {
+            min_path = min_path > temp_path ? temp_path : min_path;
+        }
+    }
+
+    //if (min_path == -1)
+    //{
+        //for (size_t i = 0; i < len; i++)
+        //{
+            //if (arr[i] != -1)
+            //{
+            //    return -1;
+            //}
+        //}
+        //return 0; 
+    //}
+
+    return min_path;
+    
+}
+
+int shortPath1(pnode head, int * arr, int len)
+{
+    int min_path = -1;
+    int temp_min_path = 0;
+    int total_min_path = -1;
+    int temp = 0;
+    pnode node = NULL;
+    pedge edges = NULL;
+    for (size_t i = 0; i < len; i++)
+    {
+        total_min_path = -1;
+        if (arr[i] != -1)
+        {
+            node = findNode(head, arr[i]);
+            for (size_t j = 0; j < len; j++)
+            {
+                temp_min_path = 0;
+                min_path = -1;
+                if (arr[j] != -1 && arr[j] != arr[i])
+                {
+                    edges = node->edges;
+                    while (edges)
+                    {
+                        if (edges->endpoint->node_num == arr[j])
+                        {
+                            temp = arr[j];
+                            arr[j] = -1;
+                            temp_min_path += edges->weight + shortPath1(head, arr, len - 1);
+                            arr[j] = temp;
+                        }
+                        edges = edges->next;
+                    }   
+                }
+                if (min_path == -1)
+                {
+                    min_path = temp_min_path;
+                }
+                else 
+                {
+                    min_path = temp_min_path > min_path ? min_path : temp_min_path;
+                }  
+            }
+            if (total_min_path == -1)
+            {
+                total_min_path = min_path;
+            }
+            else
+            {
+                total_min_path = total_min_path > min_path ? min_path : total_min_path;
+            }  
+        }
+    }
+    if (total_min_path == -1)
+    {
+        temp_min_path = 0;
+    }
+    return total_min_path;
 }
