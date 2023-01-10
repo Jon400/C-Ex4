@@ -239,7 +239,6 @@ void TSP_cmd(pnode node)
 {
     int k = 0;
     int res = -1;
-    int min = 0;
     scanf("%d", &k);
     int * path_nodes = (int *) malloc(k * sizeof(int)); 
 
