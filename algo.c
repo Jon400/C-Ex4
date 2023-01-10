@@ -230,7 +230,7 @@ void shortsPath_cmd(pnode node)
            }   
     }
 
-    printf("Dijsktra shortest path: %d\n ", dist_nodes_arr[node_target]);  
+    printf("Dijsktra shortest path: %d \n", dist_nodes_arr[node_target]);  
     free(visited_nodes_arr);
     free(dist_nodes_arr);
 }
@@ -268,7 +268,7 @@ void TSP_cmd(pnode node)
     
     free(path_nodes);
     free(all_nodes);
-    printf("TSP shortest path: %d\n ", res);
+    printf("TSP shortest path: %d \n", res);
 }
 
 int shortPathAll(pnode head, int * arr, int * path_nodes, int len, int k)
