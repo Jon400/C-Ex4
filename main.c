@@ -6,8 +6,9 @@
 int main(int argc, char const *argv[])
 {
     char res = '\0';
-    pnode * head = (pnode*) malloc(sizeof(pnode));
-    *head = NULL;
+    pnode node;
+    pnode * head = &node;
+    //*head = NULL;
 
     while (scanf("%c", &res) !=EOF)
     {
@@ -33,7 +34,6 @@ int main(int argc, char const *argv[])
         }  
     }
 
-    deleteAllNodes(*head);
-    free(head);        
+    deleteAllNodes(*head);       
     return 0;
 }

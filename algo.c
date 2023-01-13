@@ -28,6 +28,11 @@ void build_graph_cmd(pnode *head)
     scanf("%d", &num);
     char res = '\0';
 
+    if (*temp_head != NULL)
+    {
+        deleteAllNodes(*temp_head);
+    }
+
     for (size_t i = 0; i < num; i++)
     {
         *temp_head = createNode(i);      
@@ -242,6 +247,12 @@ void TSP_cmd(pnode node)
     scanf("%d", &k);
     int * path_nodes = (int *) malloc(k * sizeof(int)); 
 
+    if (path_nodes == NULL && k != 0)
+    {
+        printf("Allocation has failed");
+        return;
+    }
+
     for (size_t i = 0; i < k; i++)
     {
         scanf("%d", &path_nodes[i]);
@@ -256,6 +267,11 @@ void TSP_cmd(pnode node)
     }
     
     int * all_nodes = (int *) malloc(nodes_count * sizeof(int));
+    if (all_nodes == NULL && node != NULL)
+    {
+        printf("Allocation has failed");
+        return;
+    }
 
     temp_node = node;
     for (size_t i = 0; i < nodes_count; i++)
