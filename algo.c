@@ -184,6 +184,13 @@ void shortsPath_cmd(pnode node)
     
     int * visited_nodes_arr = (int *) malloc(nodes_count * sizeof(int));
     int * dist_nodes_arr = (int *) malloc(nodes_count * sizeof(int));
+
+    if (nodes_count != 0 && (!visited_nodes_arr && !dist_nodes_arr))
+    {
+        printf("Allocation has failed");
+        return;
+    }
+
     //initialize the array
     for (size_t i = 0; i < nodes_count; i++)
     {
