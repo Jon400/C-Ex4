@@ -6,7 +6,7 @@
 int main(int argc, char const *argv[])
 {
     char res = '\0';
-    pnode node;
+    pnode node = NULL;
     pnode * head = &node;
     //*head = NULL;
 
